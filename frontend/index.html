@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rua XV + Forte</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -25,8 +27,15 @@
   </section>
 
   <main class="container">
-    <div class="search-container">
+    <div id="map"></div>
+    <div class="filter-container">
       <input type="text" id="searchInput" placeholder="Buscar por loja ou produto...">
+      <select id="categoryFilter">
+        <option value="">Todas as Categorias</option>
+      </select>
+      <select id="offerFilter">
+        <option value="">Todos os Tipos</option>
+      </select>
     </div>
 
     <div id="store-grid" class="grid-container">
@@ -46,6 +55,8 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="script.js"></script>
 </body>
 
