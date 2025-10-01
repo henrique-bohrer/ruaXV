@@ -1,9 +1,33 @@
-/* Estilos Gerais */
+/*
+New Professional Design for Rua XV + Forte
+---
+- Font: Montserrat from Google Fonts
+- Palette: Modern & Elegant (Greens, Golds, Grays)
+- Layout: Improved spacing, consistency, and clean UI
+*/
+
+/* --- CSS Variables --- */
+:root {
+    --primary-color: #005A4D;   /* Deeper, more elegant green */
+    --secondary-color: #00796B; /* Slightly lighter green for accents */
+    --accent-color: #D4AF37;    /* Sophisticated gold for tags/highlights */
+    --background-color: #F8F9FA;/* Off-white for a clean, soft background */
+    --text-color: #343A40;      /* Dark gray for readability */
+    --light-gray: #E9ECEF;      /* For borders and subtle dividers */
+    --white-color: #FFFFFF;
+    --font-family: 'Montserrat', sans-serif;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.12);
+    --border-radius: 8px;
+}
+
+/* --- General Styles --- */
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
     margin: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
 .container {
@@ -12,62 +36,125 @@ body {
     padding: 20px;
 }
 
-/* Cabeçalho */
+/* --- Header --- */
 header {
-    background-color: #004d40; /* Verde escuro, remetendo a Curitiba */
-    color: #fff;
-    padding: 20px 0;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 25px 0;
     text-align: center;
+    box-shadow: var(--shadow);
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: 2.8em;
+    font-weight: 700;
 }
 
-/* Seção de Destaque (Hero) */
+header p {
+    margin: 5px 0 0;
+    font-size: 1.1em;
+    font-weight: 300;
+}
+
+
+/* --- Hero Section --- */
 #hero {
-    background-image: url('https://via.placeholder.com/1200x300?text=Rua+XV+de+Novembro'); /* Imagem da Rua XV */
-    background-size: cover;
-    background-position: center;
-    color: #fff;
+    /* Using a gradient as a modern placeholder */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--white-color);
     text-align: center;
-    padding: 60px 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    padding: 80px 20px;
 }
 
-/* Busca */
+#hero h2 {
+    font-size: 2.2em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/* --- Search & Map --- */
 .search-container {
-    margin-bottom: 20px;
+    margin: 30px 0;
     text-align: center;
 }
 
 #searchInput {
-    width: 50%;
-    padding: 10px;
+    width: 60%;
+    padding: 15px;
     font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
 }
 
-/* Grid de Lojas */
+#searchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 90, 77, 0.1);
+}
+
+#map {
+    height: 450px;
+    margin-bottom: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    z-index: 0; /* Keep map under other UI elements if needed */
+}
+
+/* --- Filters --- */
+.filter-container {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    background-color: var(--white-color);
+    color: var(--secondary-color);
+    border: 1px solid var(--light-gray);
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 50px; /* Pill shape */
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* --- Store Grid & Cards --- */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 25px;
 }
 
 .card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: var(--white-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
 }
 
 .card img {
@@ -77,39 +164,45 @@ header h1 {
 }
 
 .card-content {
-    padding: 15px;
+    padding: 20px;
+    flex-grow: 1; /* Allows content to fill space */
 }
 
 .card-content h3 {
     margin-top: 0;
-    color: #004d40;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-size: 1.4em;
+    font-weight: 700;
 }
 
 .card-content p {
-    font-size: 0.9em;
+    font-size: 0.95em;
     color: #666;
+    margin-bottom: 15px;
 }
 
 .card-content .tag {
     display: inline-block;
-    background-color: #ffc107; /* Amarelo para destaque */
-    color: #333;
-    padding: 5px 10px;
-    border-radius: 5px;
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    padding: 6px 12px;
+    border-radius: 50px; /* Pill shape */
     font-size: 0.8em;
-    font-weight: bold;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-/* Rodapé */
+/* --- Footer --- */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #343A40;
+    color: var(--white-color);
     text-align: center;
-    padding: 20px 0;
-    margin-top: 40px;
+    padding: 30px 0;
+    margin-top: 50px;
 }
 
-/* Modal */
+/* --- Modal --- */
 .modal {
     display: none;
     position: fixed;
@@ -119,36 +212,61 @@ footer {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--white-color);
     margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 8px;
+    padding: 30px;
+    border: none;
+    width: 90%;
+    max-width: 650px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-hover);
     position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .close-button {
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
     font-weight: bold;
     cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-button:hover {
+    color: #333;
 }
 
 #modal-body h2 {
-    color: #004d40;
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 15px;
 }
 
-/* Map */
-#map {
-    height: 400px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    z-index: 0;
+#modal-body p {
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+
+#modal-body h3 {
+    color: var(--secondary-color);
+    border-left: 4px solid var(--accent-color);
+    padding-left: 15px;
+    font-size: 1.3em;
+}
+
+#modal-body img {
+    margin-top: 20px !important; /* Overriding inline style */
 }

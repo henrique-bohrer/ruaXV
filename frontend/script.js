@@ -65,11 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const storeGrid = document.getElementById('store-grid');
     const searchInput = document.getElementById('searchInput');
+    const filterContainer = document.getElementById('filter-container');
     const modal = document.getElementById('modal');
     const modalBody = document.getElementById('modal-body');
     const closeButton = document.querySelector('.close-button');
     const map = L.map('map').setView([-25.4284, -49.2732], 16);
     let markers = L.layerGroup().addTo(map);
+    let currentCategory = 'All';
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -123,18 +125,52 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    // Filtro de busca
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        const filteredStores = storeData.filter(store =>
-            store.name.toLowerCase().includes(searchTerm) ||
-            store.category.toLowerCase().includes(searchTerm) ||
-            store.offer.toLowerCase().includes(searchTerm)
-        );
-        displayStores(filteredStores);
-    });
+    // Função para popular os botões de filtro
+    const populateFilterButtons = () => {
+        const categories = ['All', ...new Set(storeData.map(store => store.category))];
+        filterContainer.innerHTML = '';
+        categories.forEach(category => {
+            const button = document.createElement('button');
+            button.innerText = category;
+            button.className = 'filter-btn';
+            if (category === currentCategory) {
+                button.classList.add('active');
+            }
+            button.addEventListener('click', () => {
+                currentCategory = category;
+                applyFilters();
+                // Update active button style
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+            filterContainer.appendChild(button);
+        });
+    };
 
-    // Eventos do modal
+    // Função para aplicar filtros (busca e categoria)
+    const applyFilters = () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        let filteredStores = storeData;
+
+        // Filtrar por categoria
+        if (currentCategory !== 'All') {
+            filteredStores = filteredStores.filter(store => store.category === currentCategory);
+        }
+
+        // Filtrar por termo de busca
+        if (searchTerm) {
+            filteredStores = filteredStores.filter(store =>
+                store.name.toLowerCase().includes(searchTerm) ||
+                store.description.toLowerCase().includes(searchTerm) ||
+                store.offer.toLowerCase().includes(searchTerm)
+            );
+        }
+
+        displayStores(filteredStores);
+    };
+
+    // Eventos
+    searchInput.addEventListener('input', applyFilters);
     closeButton.addEventListener('click', closeModal);
     window.addEventListener('click', (e) => {
         if (e.target == modal) {
@@ -142,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Exibição inicial das lojas
-    displayStores(storeData);
+    // Inicialização
+    populateFilterButtons();
+    applyFilters();
 });
